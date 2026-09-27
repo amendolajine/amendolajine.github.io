@@ -1,0 +1,78 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git commit *)",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/blocca-commit-vietati.sh"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/controllo-build.sh"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npm install)",
+      "Bash(npx astro *)",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git switch *)",
+      "Bash(git checkout -b *)",
+      "Bash(gh pr view *)",
+      "Bash(gh pr create *)",
+      "Bash(gh pr checks *)",
+      "Bash(git init *)",
+      "Bash(git config *)",
+      "Bash(chmod +x *)",
+      "Bash(mkdir *)",
+      "Bash(unzip *)",
+      "Bash(gh auth status *)",
+      "Bash(gh auth switch *)",
+      "Bash(gh api *)",
+      "Bash(gh repo create *)",
+      "Bash(gh run *)",
+      "Bash(npm create astro*)",
+      "Bash(node --version)",
+      "Bash(npm --version)"
+    ],
+    "ask": [
+      "Bash(git push *)",
+      "Bash(gh pr merge *)",
+      "Bash(npm install *)",
+      "Bash(brew *)",
+      "Bash(gh auth login *)"
+    ],
+    "deny": [
+      "Bash(git push *--force*)",
+      "Bash(git push *-f *)",
+      "Bash(git reset --hard *)",
+      "Bash(git rebase *)",
+      "Bash(git commit *--no-verify*)",
+      "Bash(rm -rf *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(~/.ssh/**)",
+      "Edit(./.env)",
+      "Edit(./.env.*)"
+    ]
+  }
+}

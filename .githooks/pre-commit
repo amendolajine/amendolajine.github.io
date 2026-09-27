@@ -1,0 +1,21 @@
+#!/bin/bash
+# Git pre-commit hook, the twin of the Claude Code hook: runs on every commit
+# from any tool, including commits Antonio makes by hand. Activate once with:
+#   git config core.hooksPath .githooks && chmod +x .githooks/pre-commit
+
+EM=$(printf '\342\200\224')
+EN=$(printf '\342\200\223')
+BANNED='delve|deep dive|game-changing|seamless|robust|leverage|unlock|elevate|tapestry|testament|pivotal|crucial|in today.s|let.s dive in|here.s the thing'
+
+EXCLUDE=(-- . ':(exclude).githooks/pre-commit' ':(exclude).claude/hooks/*' ':(exclude)docs/02_scrittura_e_fonti.md')
+STAGED=$(git diff --cached -U0 "${EXCLUDE[@]}" | grep '^+' | grep -v '^+++')
+if printf '%s' "$STAGED" | grep -q -F -e "$EM" -e "$EN"; then
+  echo "Commit blocked: a long dash is in the staged changes. Replace it with '-'." >&2
+  exit 1
+fi
+HIT=$(printf '%s' "$STAGED" | grep -o -i -E "$BANNED" | head -1)
+if [ -n "$HIT" ]; then
+  echo "Commit blocked: banned word '$HIT' in the staged changes." >&2
+  exit 1
+fi
+exit 0

@@ -1,0 +1,13 @@
+/* Placeholder design tokens. Real values come from the design system (see DESIGN.md). */
+:root {
+	--background: #ffffff;
+	--surface: #f4f4f4;
+	--text: #111111;
+	--text-muted: #555555;
+	--accent: #2222ee;
+	--accent-strong: #1111aa;
+	--border: #dddddd;
+	--success: #1a7f37;
+	--warning: #9a6700;
+	--danger: #cf222e;
+}
